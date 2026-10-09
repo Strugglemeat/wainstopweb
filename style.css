@@ -128,13 +128,30 @@ nav a:hover {
     overflow-y: auto;
 }
 
-.games #shelf {
+.game-stack {
     order: -1;
+    flex-shrink: 0;
+    width: 80px;
+}
+
+#up, #down {
+    display: block;
+    margin: 0 auto;
+    padding: 0 8px;
+    border: 0;
+    background: white;
+    color: black;
+    font: 32px Arial, sans-serif;
+    transform: rotate(90deg);
+    cursor: pointer;
+}
+
+.games #shelf {
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
     width: 80px;
-    max-height: 65vh;
+    max-height: calc(65vh - 76px);
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -180,6 +197,230 @@ nav a:hover {
     margin: 12px 0 0;
     line-height: 1.4;
     white-space: pre-line;
+}
+
+.goods {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(83.4%, 1100px);
+    max-height: 68vh;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 20px 12px;
+    font: 10pt Arial, sans-serif;
+}
+
+.shop-filter {
+    position: absolute;
+    top: 3%;
+    right: 8.3%;
+    font: 10pt Arial, sans-serif;
+}
+
+.shop-filter select {
+    font: inherit;
+}
+
+.goods a[hidden] {
+    display: none;
+}
+
+.goods a {
+    color: black;
+    text-decoration: none;
+}
+
+.goods a:hover {
+    font-style: italic;
+    text-decoration: underline;
+}
+
+.goods img, .goods .missing {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    margin-bottom: 6px;
+}
+
+.goods .missing {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eee;
+}
+
+.events {
+    position: absolute;
+    top: 5%;
+    bottom: 22%;
+    left: 14%;
+    width: 73%;
+    overflow-y: auto;
+    font: 18px Arial, sans-serif;
+}
+
+.people {
+    position: relative;
+    margin: 5vh 0 24px 14%;
+    padding-bottom: 20vh;
+    width: 60%;
+    font: 10pt Arial, sans-serif;
+    line-height: 1.7;
+    text-align: left;
+}
+
+.people a {
+    display: block;
+    width: fit-content;
+    color: blue;
+    text-decoration: none;
+}
+
+.people a:hover {
+    font-style: italic;
+    text-decoration: underline;
+}
+
+.contacts {
+    margin-top: 24px;
+}
+
+.about nav {
+    position: fixed;
+    z-index: 2;
+}
+
+.about nav a {
+    background: white;
+    padding: 0 2px;
+}
+
+.about h1 {
+    position: fixed;
+}
+
+.show {
+    display: grid;
+    grid-template-columns: 37% minmax(0, 1fr);
+    gap: 24px 30px;
+    margin-bottom: 80px;
+}
+
+.show button {
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+    background: #bdbdbd;
+}
+
+.large {
+    grid-row: 1 / 3;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    align-self: start;
+}
+
+.details {
+    text-align: right;
+}
+
+.details h2 {
+    margin: 0;
+    font: bold clamp(24px, 2.5vw, 48px) "Times New Roman", serif;
+}
+
+.details p {
+    margin: 60px 0 0;
+}
+
+.small {
+    display: flex;
+    gap: 30px;
+    align-self: end;
+}
+
+.small button {
+    width: 15%;
+    aspect-ratio: 16 / 9;
+}
+
+.small button[aria-pressed="true"] {
+    outline: 1px solid black;
+    outline-offset: 2px;
+}
+
+#enlarged {
+    padding: 16px 48px;
+    border: 0;
+    width: min(1100px, 85vw);
+    box-sizing: border-box;
+}
+
+#enlarged::backdrop {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+#close {
+    display: block;
+    margin: 0 0 12px auto;
+    font: 10pt Arial, sans-serif;
+}
+
+#picture {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    max-height: 75vh;
+}
+
+.expanded-slide {
+    position: relative;
+}
+
+#previous, #next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0 8px;
+    border: 0;
+    background: white;
+    color: black;
+    font: 32px Arial, sans-serif;
+    cursor: pointer;
+}
+
+#previous {
+    left: -40px;
+}
+
+#next {
+    right: -40px;
+}
+
+@media (max-width: 600px) {
+    .show {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .large {
+        grid-row: auto;
+    }
+
+    .details p {
+        margin-top: 16px;
+    }
+
+    .small {
+        gap: 12px;
+    }
+
+    .small button {
+        width: 25%;
+    }
 }
 
 @media (max-width: 600px) {

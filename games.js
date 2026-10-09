@@ -141,6 +141,14 @@ const stores = document.getElementById("stores");
 const description = document.getElementById("description");
 const released = document.getElementById("released");
 
+document.getElementById("up").addEventListener("click", function () {
+    shelf.scrollBy({ top: -160, behavior: "smooth" });
+});
+
+document.getElementById("down").addEventListener("click", function () {
+    shelf.scrollBy({ top: 160, behavior: "smooth" });
+});
+
 for (let n = boxes.length - 1; n > 0; n--) {
     const pick = Math.floor(Math.random() * (n + 1));
     [boxes[n], boxes[pick]] = [boxes[pick], boxes[n]];
