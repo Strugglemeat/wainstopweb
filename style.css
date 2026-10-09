@@ -254,12 +254,10 @@ nav a:hover {
 }
 
 .events {
-    position: absolute;
-    top: 5%;
-    bottom: 22%;
-    left: 14%;
+    position: relative;
+    margin: 5vh 0 24px 14%;
+    padding-bottom: 20vh;
     width: 73%;
-    overflow-y: auto;
     font: 18px Arial, sans-serif;
 }
 
@@ -289,17 +287,17 @@ nav a:hover {
     margin-top: 24px;
 }
 
-.about nav {
+.about nav, .exhibit nav {
     position: fixed;
     z-index: 2;
 }
 
-.about nav a {
+.about nav a, .exhibit nav a {
     background: white;
     padding: 0 2px;
 }
 
-.about h1 {
+.about h1, .exhibit h1 {
     position: fixed;
 }
 
