@@ -7,7 +7,7 @@ let turn;
 for (const show of shows) {
     const large = show.querySelector(".large");
     const photos = show.dataset.photos ? Array.from({ length: Number(show.dataset.count) }, function (_, n) {
-        return "images/exhibit/" + show.dataset.photos + "/photo-" + (n + 1) + ".webp";
+        return "images/exhibit/" + show.dataset.photos + "/photo-" + (n + Number(show.dataset.start || 1)) + ".webp";
     }) : [];
     if (photos.length) {
         const strip = show.querySelector(".small");

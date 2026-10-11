@@ -1,5 +1,13 @@
 const tapes = [
     [
+        "ms2klX-puUU",
+        "YouTube video"
+    ],
+    [
+        "0UC2w1D_XZc",
+        "YouTube video"
+    ],
+    [
         "-D3kZddSd_Y",
         "Burning Jakob ep 4: REGRET"
     ],
@@ -621,7 +629,7 @@ function rows() {
     const width = across * size + (across - 1) * 3;
     const player = document.querySelector(".player");
     player.style.marginLeft = (shelf.clientWidth - width) / 2 + "px";
-    player.style.width = width * 0.6 + "px";
+    player.style.width = width * (mobile ? 0.9 : 0.6) + "px";
 }
 
 for (let n = tapes.length - 1; n > 0; n--) {
