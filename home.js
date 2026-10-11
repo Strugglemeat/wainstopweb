@@ -1,5 +1,7 @@
 const floor = document.getElementById("tiles");
 const pictures = ["tiles/favicon.png"];
+const giant = Math.random() < 0.15;
+floor.classList.toggle("giant", giant);
 
 function lay() {
     const across = Math.ceil(window.innerWidth / 40);
@@ -13,6 +15,11 @@ function lay() {
         const picture = document.createElement("img");
         picture.src = pictures[Math.floor(Math.random() * pictures.length)];
         picture.alt = "";
+        if (giant) {
+            picture.style.height = window.innerHeight + "px";
+            picture.style.left = window.innerWidth / 2 - (n % across) * window.innerWidth / across + "px";
+            picture.style.top = -Math.floor(n / across) * window.innerHeight / down + "px";
+        }
         square.addEventListener("pointerenter", function () {
             square.classList.add("seen");
         });

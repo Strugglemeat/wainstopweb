@@ -33,7 +33,20 @@
     opacity: 1;
 }
 
+#tiles.giant > div {
+    position: relative;
+    overflow: hidden;
+}
+
+#tiles.giant img {
+    position: absolute;
+    width: auto;
+    max-width: none;
+    transform: translateX(-50%);
+}
+
 body {
+    --content-width: min(73%, 1100px);
     --mark-size: 45px;
     margin: 0;
     background: #98996e;
@@ -84,8 +97,9 @@ h1 a:hover {
 nav {
     position: fixed;
     bottom: 5.3%;
-    left: 8.3%;
-    width: 83.4%;
+    left: 50%;
+    width: var(--content-width);
+    transform: translateX(-50%);
     display: flex;
     justify-content: space-between;
     align-items: baseline;
@@ -111,12 +125,11 @@ nav > a[aria-current="page"] {
 
 @media (max-width: 600px) {
     body {
+        --content-width: 94%;
         --mark-size: clamp(20px, 5.4vw, 32.4px);
     }
 
     nav {
-        left: 3%;
-        width: 94%;
         gap: 4px;
         font-size: clamp(10px, 2.5vw, 13.33px);
     }
@@ -125,7 +138,7 @@ nav > a[aria-current="page"] {
 .films {
     position: relative;
     margin: 8vh auto 0;
-    width: min(83.4%, 1100px);
+    width: var(--content-width);
     z-index: 1;
 }
 
@@ -259,7 +272,7 @@ nav > a[aria-current="page"] {
 .goods {
     position: relative;
     margin: 8vh auto 0;
-    width: min(83.4%, 1100px);
+    width: var(--content-width);
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 20px 12px;
@@ -269,7 +282,7 @@ nav > a[aria-current="page"] {
 .shop-filter {
     position: absolute;
     top: 3%;
-    right: max(8.3%, calc((100% - 1100px) / 2));
+    right: calc((100% - var(--content-width)) / 2);
     font: 10pt Arial, sans-serif;
 }
 
@@ -308,8 +321,8 @@ nav > a[aria-current="page"] {
 
 .events {
     position: relative;
-    margin: 5vh 0 24px 14%;
-    width: 73%;
+    margin: 5vh auto 24px;
+    width: var(--content-width);
     font: 10pt Helvetica, Arial, sans-serif;
 }
 
@@ -422,10 +435,47 @@ nav > a[aria-current="page"] {
     font: 10pt Arial, sans-serif;
 }
 
+#show-title {
+    position: absolute;
+    top: 16px;
+    left: 48px;
+    right: 110px;
+    color: red;
+    font: normal 10pt Arial, sans-serif;
+}
+
 #picture {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
     width: 100%;
     aspect-ratio: 16 / 9;
     max-height: 75vh;
+}
+
+.photographs .large,
+.photographs .small button {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.photographs .small {
+    gap: 8px;
+}
+
+.photographs .small button {
+    flex: 1;
+    min-width: 0;
+}
+
+.show[data-photos="Loveismydojo_solo"] .small {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.show[data-photos="Loveismydojo_solo"] .small button {
+    width: 100%;
 }
 
 .expanded-slide {
@@ -510,6 +560,7 @@ nav > a[aria-current="page"] {
 }
 
 .people a,
+.details a,
 #stores a,
 .goods a > div {
     color: red;

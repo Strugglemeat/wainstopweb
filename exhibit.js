@@ -6,13 +6,29 @@ let turn;
 
 for (const show of shows) {
     const large = show.querySelector(".large");
+    const photos = show.dataset.photos ? Array.from({ length: Number(show.dataset.count) }, function (_, n) {
+        return "images/exhibit/" + show.dataset.photos + "/photo-" + (n + 1) + ".webp";
+    }) : [];
+    if (photos.length) {
+        const strip = show.querySelector(".small");
+        strip.replaceChildren();
+        photos.forEach(function (_, n) {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.setAttribute("aria-label", "Show image " + (n + 1));
+            strip.append(button);
+        });
+        show.classList.add("photographs");
+    }
     const small = show.querySelectorAll(".small button");
+    const count = photos.length || shades.length;
     let slide = 0;
     let timer;
 
     function display(n) {
         slide = n;
-        large.style.backgroundColor = shades[slide];
+        large.style.backgroundColor = photos.length ? "transparent" : shades[slide];
+        large.style.backgroundImage = photos.length ? "url('" + photos[slide] + "')" : "none";
         large.setAttribute("aria-label", "Expand " + show.dataset.title + ", image " + (slide + 1));
         small.forEach(function (button, i) {
             button.setAttribute("aria-pressed", String(i === slide));
@@ -22,12 +38,13 @@ for (const show of shows) {
     function run() {
         clearInterval(timer);
         timer = setInterval(function () {
-            if (!enlarged.open) display((slide + 1) % shades.length);
+            if (!enlarged.open) display((slide + 1) % count);
         }, 5000);
     }
 
     small.forEach(function (button, i) {
-        button.style.backgroundColor = shades[i];
+        button.style.backgroundColor = photos.length ? "transparent" : shades[i];
+        button.style.backgroundImage = photos.length ? "url('" + photos[i] + "')" : "none";
         button.addEventListener("click", function () {
             display(i);
             run();
@@ -35,9 +52,11 @@ for (const show of shows) {
     });
 
     large.addEventListener("click", function () {
+        document.getElementById("show-title").textContent = show.dataset.title;
         turn = function (step) {
-            display((slide + step + shades.length) % shades.length);
-            picture.style.backgroundColor = shades[slide];
+            display((slide + step + count) % count);
+            picture.style.backgroundColor = photos.length ? "transparent" : shades[slide];
+            picture.style.backgroundImage = photos.length ? "url('" + photos[slide] + "')" : "none";
             picture.setAttribute("aria-label", show.dataset.title + ", image " + (slide + 1));
             run();
         };
