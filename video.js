@@ -609,12 +609,16 @@ const shelf = document.getElementById("shelf");
 const screen = document.getElementById("screen");
 
 function rows() {
-    const size = window.matchMedia("(max-width: 600px)").matches ? 32 : 40;
-    const across = Math.max(1, Math.floor((shelf.clientWidth + 3) / (size + 3)) - 4);
+    const mobile = window.matchMedia("(max-width: 600px)").matches;
+    const size = mobile ? 27.2 : 40;
+    const across = Math.max(1, Math.floor((shelf.clientWidth + 3) / (mobile ? 35 : 43)) - (mobile ? 2 : 4));
     const spare = (across - tapes.length % across) % across;
     shelf.style.gridTemplateColumns = "repeat(" + across + ", " + size + "px)";
     shelf.firstElementChild.style.gridColumnStart = spare + 1;
-    document.querySelector(".player").style.marginLeft = (shelf.clientWidth - across * size - (across - 1) * 3) / 2 + "px";
+    const width = across * size + (across - 1) * 3;
+    const player = document.querySelector(".player");
+    player.style.marginLeft = (shelf.clientWidth - width) / 2 + "px";
+    player.style.width = width * 0.6 + "px";
 }
 
 for (let n = tapes.length - 1; n > 0; n--) {

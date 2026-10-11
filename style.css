@@ -1,16 +1,34 @@
 body {
+    --mark-size: 45px;
     margin: 0;
     background: white;
     color: black;
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding-bottom: 20vh;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 5.3%;
+    height: calc(32px + var(--mark-size));
+    background: white;
+    z-index: 2;
+    pointer-events: none;
 }
 
 h1 {
-    position: absolute;
-    bottom: 12%;
+    position: fixed;
+    bottom: calc(5.3% + 32px);
     left: 82.3%;
     margin: 0;
     transform: translateX(-50%);
-    font: bold 45px "Times New Roman", serif;
+    font: bold var(--mark-size)/1 "Times New Roman", serif;
+    padding: 0 2px;
+    z-index: 3;
 }
 
 h1 a {
@@ -32,13 +50,15 @@ h1 a:hover {
 }
 
 nav {
-    position: absolute;
+    position: fixed;
     bottom: 5.3%;
     left: 8.3%;
     width: 85%;
     display: flex;
     justify-content: space-around;
     font: 10pt Arial, sans-serif;
+    padding: 2px 0;
+    z-index: 3;
 }
 
 nav a {
@@ -51,7 +71,15 @@ nav a:hover {
     text-decoration: underline;
 }
 
+nav a[aria-current="page"] {
+    font-style: italic;
+}
+
 @media (max-width: 600px) {
+    body {
+        --mark-size: 32.4px;
+    }
+
     h1 {
         left: 75%;
         font-size: 32.4px;
@@ -64,10 +92,8 @@ nav a:hover {
 }
 
 .films {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 12%;
+    position: relative;
+    margin: 8vh auto 0;
     width: min(83.4%, 1100px);
     z-index: 1;
 }
@@ -110,8 +136,7 @@ nav a:hover {
 }
 
 .games .films {
-    top: 10%;
-    bottom: auto;
+    margin-top: 10vh;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -200,13 +225,9 @@ nav a:hover {
 }
 
 .goods {
-    position: absolute;
-    top: 8%;
-    left: 50%;
-    transform: translateX(-50%);
+    position: relative;
+    margin: 8vh auto 0;
     width: min(83.4%, 1100px);
-    max-height: 68vh;
-    overflow-y: auto;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 20px 12px;
@@ -216,7 +237,7 @@ nav a:hover {
 .shop-filter {
     position: absolute;
     top: 3%;
-    right: 8.3%;
+    right: max(8.3%, calc((100% - 1100px) / 2));
     font: 10pt Arial, sans-serif;
 }
 
@@ -256,7 +277,6 @@ nav a:hover {
 .events {
     position: relative;
     margin: 5vh 0 24px 14%;
-    padding-bottom: 20vh;
     width: 73%;
     font: 18px Arial, sans-serif;
 }
@@ -264,7 +284,6 @@ nav a:hover {
 .people {
     position: relative;
     margin: 5vh 0 24px 14%;
-    padding-bottom: 20vh;
     width: 60%;
     font: 10pt Arial, sans-serif;
     line-height: 1.7;
@@ -289,11 +308,10 @@ nav a:hover {
 
 .about nav, .exhibit nav {
     position: fixed;
-    z-index: 2;
+    z-index: 3;
 }
 
 .about nav a, .exhibit nav a {
-    background: white;
     padding: 0 2px;
 }
 
@@ -424,6 +442,10 @@ nav a:hover {
 @media (max-width: 600px) {
     .player {
         width: min(320px, 100%);
+    }
+
+    .cinema .player {
+        width: 100%;
     }
 
     #shelf {
