@@ -1,7 +1,12 @@
+::selection {
+    background: white;
+    color: blue;
+}
+
 body {
     --mark-size: 45px;
     margin: 0;
-    background: white;
+    background: #98996e;
     color: black;
     min-height: 100vh;
     box-sizing: border-box;
@@ -14,18 +19,15 @@ body::after {
     left: 0;
     right: 0;
     bottom: 5.3%;
-    height: calc(32px + var(--mark-size));
-    background: white;
+    height: calc(var(--mark-size) + 4px);
+    background: black;
     z-index: 2;
     pointer-events: none;
 }
 
 h1 {
-    position: fixed;
-    bottom: calc(5.3% + 32px);
-    left: 82.3%;
+    position: static;
     margin: 0;
-    transform: translateX(-50%);
     font: bold var(--mark-size)/1 "Times New Roman", serif;
     padding: 0 2px;
     z-index: 3;
@@ -53,41 +55,40 @@ nav {
     position: fixed;
     bottom: 5.3%;
     left: 8.3%;
-    width: 85%;
+    width: 83.4%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
     font: 10pt Arial, sans-serif;
     padding: 2px 0;
     z-index: 3;
 }
 
-nav a {
-    color: black;
+nav > a {
+    color: white;
     text-decoration: none;
 }
 
-nav a:hover {
+nav > a:hover {
     font-style: italic;
     text-decoration: underline;
 }
 
-nav a[aria-current="page"] {
+nav > a[aria-current="page"] {
     font-style: italic;
 }
 
 @media (max-width: 600px) {
     body {
-        --mark-size: 32.4px;
-    }
-
-    h1 {
-        left: 75%;
-        font-size: 32.4px;
+        --mark-size: clamp(20px, 5.4vw, 32.4px);
     }
 
     nav {
-        left: 0;
-        width: 100%;
+        left: 3%;
+        width: 94%;
+        gap: 4px;
+        font-size: clamp(10px, 2.5vw, 13.33px);
     }
 }
 
@@ -278,7 +279,7 @@ nav a[aria-current="page"] {
     position: relative;
     margin: 5vh 0 24px 14%;
     width: 73%;
-    font: 18px Arial, sans-serif;
+    font: 10pt Helvetica, Arial, sans-serif;
 }
 
 .people {
@@ -302,8 +303,13 @@ nav a[aria-current="page"] {
     text-decoration: underline;
 }
 
-.contacts {
+.contacts, .featured {
     margin-top: 24px;
+}
+
+.featured {
+    margin-top: 0;
+    margin-bottom: 24px;
 }
 
 .about nav, .exhibit nav {
@@ -311,12 +317,8 @@ nav a[aria-current="page"] {
     z-index: 3;
 }
 
-.about nav a, .exhibit nav a {
+.about nav > a, .exhibit nav > a {
     padding: 0 2px;
-}
-
-.about h1, .exhibit h1 {
-    position: fixed;
 }
 
 .show {
@@ -346,7 +348,7 @@ nav a[aria-current="page"] {
 
 .details h2 {
     margin: 0;
-    font: bold clamp(24px, 2.5vw, 48px) "Times New Roman", serif;
+    font: bold calc(clamp(24px, 2.5vw, 48px) - 5pt) "Times New Roman", serif;
 }
 
 .details p {
@@ -440,6 +442,11 @@ nav a[aria-current="page"] {
 }
 
 @media (max-width: 600px) {
+    .cinema .films {
+        width: 94%;
+        margin-top: 25vh;
+    }
+
     .player {
         width: min(320px, 100%);
     }
@@ -451,4 +458,31 @@ nav a[aria-current="page"] {
     #shelf {
         grid-template-columns: repeat(auto-fit, 32px);
     }
+}
+
+.people div:not(:has(*)),
+.details h2,
+.details div,
+.details p,
+#name,
+#released,
+#description,
+.shop-filter label,
+.shop-filter select,
+.shop-filter option {
+    color: yellow;
+    background: red;
+}
+
+.people a,
+#stores a,
+.goods a > div {
+    color: red;
+    background: yellow;
+}
+
+main button:not(.large):not(.small button),
+#enlarged button {
+    color: yellow;
+    background: red;
 }

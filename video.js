@@ -610,8 +610,11 @@ const screen = document.getElementById("screen");
 
 function rows() {
     const mobile = window.matchMedia("(max-width: 600px)").matches;
-    const size = mobile ? 27.2 : 40;
-    const across = Math.max(1, Math.floor((shelf.clientWidth + 3) / (mobile ? 35 : 43)) - (mobile ? 2 : 4));
+    const size = mobile ? 28.56 : 40;
+    let across = Math.max(1, Math.floor((shelf.clientWidth + 3) / (mobile ? 35 : 43)) - 4);
+    if (mobile) {
+        across = Math.min(Math.floor((shelf.clientWidth + 3) / (size + 3)), Math.round(across * 1.25));
+    }
     const spare = (across - tapes.length % across) % across;
     shelf.style.gridTemplateColumns = "repeat(" + across + ", " + size + "px)";
     shelf.firstElementChild.style.gridColumnStart = spare + 1;
