@@ -141,12 +141,18 @@ const stores = document.getElementById("stores");
 const description = document.getElementById("description");
 const released = document.getElementById("released");
 
+function move(step) {
+    const end = Math.max(0, shelf.scrollHeight - shelf.clientHeight);
+    const top = Math.max(0, Math.min(end, shelf.scrollTop + step));
+    shelf.scrollTo({ top, behavior: "smooth" });
+}
+
 document.getElementById("up").addEventListener("click", function () {
-    shelf.scrollBy({ top: -160, behavior: "smooth" });
+    move(-160);
 });
 
 document.getElementById("down").addEventListener("click", function () {
-    shelf.scrollBy({ top: 160, behavior: "smooth" });
+    move(160);
 });
 
 for (let n = boxes.length - 1; n > 0; n--) {

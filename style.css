@@ -224,11 +224,17 @@ nav > a[aria-current="page"] {
 .games #shelf {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
     flex-shrink: 0;
     width: 80px;
     max-height: calc(65vh - 76px);
     overflow-y: auto;
     overflow-x: hidden;
+    overscroll-behavior-y: contain;
+}
+
+.games #shelf > a {
+    flex: 0 0 auto;
 }
 
 #cover {
