@@ -1,3 +1,7 @@
+html {
+    overflow-y: scroll;
+}
+
 ::selection {
     background: white;
     color: blue;
@@ -115,6 +119,7 @@ nav {
 }
 
 nav > a {
+    padding: 0 2px;
     color: white;
     text-decoration: none;
 }
@@ -477,16 +482,18 @@ nav > a[aria-current="page"] {
 }
 
 .photographs .small button {
-    flex: 1;
+    flex: 0 1 15%;
     min-width: 0;
 }
 
-.show[data-photos="Loveismydojo_solo"] .small {
+.show[data-photos="Loveismydojo_solo"] .small,
+.show[data-photos="fbmarketplace_gallery1"] .small {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
 }
 
-.show[data-photos="Loveismydojo_solo"] .small button {
+.show[data-photos="Loveismydojo_solo"] .small button,
+.show[data-photos="fbmarketplace_gallery1"] .small button {
     width: 100%;
 }
 
@@ -531,6 +538,10 @@ nav > a[aria-current="page"] {
 
     .small button {
         width: 25%;
+    }
+
+    .photographs .small button {
+        flex-basis: 25%;
     }
 }
 
@@ -579,4 +590,91 @@ main button:not(.large):not(.small button),
 #enlarged button {
     color: yellow;
     background: red;
+}
+
+.games #shelf {
+    order: -1;
+    display: block;
+    width: 30%;
+    max-height: none;
+    overflow: visible;
+    flex-shrink: 0;
+}
+
+.games #shelf section {
+    margin-bottom: 12px;
+}
+
+.games #shelf h2 {
+    margin: 0 0 8px;
+    font: bold 30pt "Times New Roman", serif;
+    color: yellow;
+    background: red;
+}
+
+.games #shelf a {
+    width: fit-content;
+    color: red;
+    background: yellow;
+    font: 10pt/1.6 Arial, sans-serif;
+    text-decoration: none;
+}
+
+.games #shelf a:hover,
+.games #shelf a:focus-visible {
+    font-style: italic;
+    text-decoration: underline;
+    outline: none;
+}
+
+.games .player {
+    width: 45%;
+    max-height: none;
+    overflow: visible;
+}
+
+#pokemon-grid {
+    display: grid;
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    width: var(--content-width);
+    margin: 8vh auto 0;
+}
+
+.pokemon output {
+    font: 10pt Arial, sans-serif;
+}
+
+.game-version {
+    left: calc((100% - var(--content-width)) / 2);
+    right: auto;
+}
+
+#pokemon-grid img {
+    display: block;
+    width: 100%;
+    height: auto;
+    image-rendering: pixelated;
+}
+
+@media (max-width: 600px) {
+    .games .films {
+        gap: 12px;
+    }
+
+    .games #shelf {
+        width: 42%;
+    }
+
+    .games #shelf h2 {
+        font-size: 24pt;
+    }
+
+    .games .player {
+        width: 54%;
+    }
+
+    #pokemon-grid {
+        width: var(--content-width);
+        grid-template-columns: repeat(8, minmax(0, 1fr));
+    }
 }

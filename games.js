@@ -140,62 +140,93 @@ const name = document.getElementById("name");
 const stores = document.getElementById("stores");
 const description = document.getElementById("description");
 const released = document.getElementById("released");
+const web = [{
+    title: "Dream Chatroom LiVE",
+    image: "images/games/dream-chat.webp",
+    web: "https://ncbourget.github.io/dream-chatroom-live/",
+    description: "Connect your webcam and microphone, play on your desktop or your mobile device. Explore the digital landscape and make new friends with random people online",
+    first: true
+}, {
+    title: "shinycatcherz",
+    image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ii/crystal/transparent/shiny/94.png",
+    web: "pokemon.html",
+    description: "catch em all or something hahaha"
+}, {
+    title: "Pretty Lag Machine",
+    image: "images/games/lag-machine.webp",
+    web: "https://ncbourget.github.io/pretty-lag-machine-live/",
+    description: "Let this program run in the background if you like",
+    last: true
+}];
 
-function move(step) {
-    const end = Math.max(0, shelf.scrollHeight - shelf.clientHeight);
-    const top = Math.max(0, Math.min(end, shelf.scrollTop + step));
-    shelf.scrollTo({ top, behavior: "smooth" });
-}
-
-document.getElementById("up").addEventListener("click", function () {
-    move(-160);
-});
-
-document.getElementById("down").addEventListener("click", function () {
-    move(160);
-});
-
-for (let n = boxes.length - 1; n > 0; n--) {
-    const pick = Math.floor(Math.random() * (n + 1));
-    [boxes[n], boxes[pick]] = [boxes[pick], boxes[n]];
+function shuffle(items) {
+    for (let n = items.length - 1; n > 0; n--) {
+        const pick = Math.floor(Math.random() * (n + 1));
+        [items[n], items[pick]] = [items[pick], items[n]];
+    }
+    return items;
 }
 
 function show(box) {
-    document.getElementById("cover-link").href = box.steam || box.itch;
+    const coverLink = document.getElementById("cover-link");
+    coverLink.href = box.web || box.steam || box.itch;
+    coverLink.target = box.web && !box.web.startsWith("https://") ? "_self" : "_blank";
     cover.src = box.image;
     cover.alt = box.title;
     name.textContent = box.title;
     released.textContent = box.released || "";
     released.hidden = !box.released;
     description.textContent = box.description;
+    if (box.web === "pokemon.html") {
+        let caught = 0;
+        try {
+            const saved = Number(localStorage.getItem("shinies-caught"));
+            if (Number.isSafeInteger(saved) && saved >= 0) caught = saved;
+        } catch {}
+        description.textContent += "\nShinies caught: " + caught;
+    }
     stores.replaceChildren();
-    for (const shop of ["steam", "itch"]) {
+    for (const shop of ["web", "steam", "itch"]) {
         if (!box[shop]) continue;
         const link = document.createElement("a");
         link.href = box[shop];
-        link.target = "_blank";
+        link.target = shop === "web" && !box[shop].startsWith("https://") ? "_self" : "_blank";
         link.rel = "noopener";
-        link.textContent = shop === "steam" ? "View on Steam" : "View on itch.io";
+        link.textContent = shop === "web" ? "Play here" : shop === "steam" ? "View on Steam" : "View on itch.io";
         stores.append(link);
     }
 }
 
-for (const box of boxes) {
-    const link = document.createElement("a");
-    const picture = document.createElement("img");
-    link.href = box.steam || box.itch;
-    link.target = "_blank";
-    link.rel = "noopener";
-    link.title = box.title;
-    picture.src = box.image;
-    picture.alt = box.title;
-    link.append(picture);
-    link.addEventListener("click", function (event) {
-        if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
-        event.preventDefault();
-        show(box);
+const sections = [{ title: "Web", games: web }].concat(shuffle([
+    { title: "Itch", games: boxes.filter(function (box) { return box.itch; }) },
+    { title: "Steam", games: boxes.filter(function (box) { return box.steam; }) }
+]));
+
+for (const section of sections) {
+    const group = document.createElement("section");
+    const heading = document.createElement("h2");
+    heading.textContent = section.title;
+    group.append(heading);
+    const ordered = shuffle(section.games).sort(function (a, b) {
+        return Number(Boolean(b.first)) - Number(Boolean(a.first)) ||
+            Number(Boolean(a.last)) - Number(Boolean(b.last));
     });
-    shelf.append(link);
+    for (const box of ordered) {
+        const link = document.createElement("a");
+        link.href = box.web || box.itch || box.steam;
+        link.target = box.web && !box.web.startsWith("https://") ? "_self" : "_blank";
+        link.rel = "noopener";
+        link.textContent = box.title;
+        link.addEventListener("mouseenter", function () { show(box); });
+        link.addEventListener("focus", function () { show(box); });
+        link.addEventListener("click", function (event) {
+            if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+            event.preventDefault();
+            show(box);
+        });
+        group.append(link);
+    }
+    shelf.append(group);
 }
 
-show(boxes[0]);
+show(shuffle(boxes.slice())[0]);
