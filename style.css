@@ -77,6 +77,10 @@ body.cinema {
     padding-bottom: 0;
 }
 
+body.cinema {
+    padding-bottom: calc(5.3vh + var(--mark-size) + 96px);
+}
+
 h1 {
     position: static;
     margin: 0;
@@ -164,6 +168,35 @@ nav > a[aria-current="page"] {
     width: 100%;
     height: 100%;
     border: 0;
+}
+
+.cinema .player {
+    aspect-ratio: auto;
+}
+
+.video-frame {
+    position: relative;
+    aspect-ratio: 16 / 9;
+}
+
+.player-bar {
+    display: flex;
+    width: 100%;
+    color: red;
+    background: yellow;
+    font: 10pt Arial, sans-serif;
+}
+
+.player-bar span {
+    flex: 1;
+    min-width: 0;
+}
+
+.player-bar time {
+    align-self: flex-start;
+    flex-shrink: 0;
+    color: yellow;
+    background: red;
 }
 
 #shelf {
@@ -407,9 +440,39 @@ nav > a[aria-current="page"] {
     line-height: 1.4;
 }
 
-.details h2 {
+.details h2,
+#collections h2,
+.games #shelf h2 {
     margin: 0;
     font: bold calc(clamp(24px, 2.5vw, 48px) - 5pt) "Times New Roman", serif;
+}
+
+#collections {
+    margin-top: 96px;
+    font: 10pt/1.6 Arial, sans-serif;
+}
+
+#collections section {
+    margin-bottom: 24px;
+}
+
+#collections h2 {
+    color: yellow;
+    background: red;
+    margin-bottom: 8px;
+}
+
+#collections a {
+    display: block;
+    width: fit-content;
+    color: red;
+    background: yellow;
+    text-decoration: none;
+}
+
+#collections a:hover {
+    font-style: italic;
+    text-decoration: underline;
 }
 
 .details p {
@@ -607,7 +670,6 @@ main button:not(.large):not(.small button),
 
 .games #shelf h2 {
     margin: 0 0 8px;
-    font: bold 30pt "Times New Roman", serif;
     color: yellow;
     background: red;
 }
@@ -663,10 +725,6 @@ main button:not(.large):not(.small button),
 
     .games #shelf {
         width: 42%;
-    }
-
-    .games #shelf h2 {
-        font-size: 24pt;
     }
 
     .games .player {

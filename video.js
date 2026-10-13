@@ -1,15 +1,15 @@
 const tapes = [
     [
         "Y_6Kp7q5tbA",
-        "YouTube video"
+        "Bart the General"
     ],
     [
         "ms2klX-puUU",
-        "YouTube video"
+        "Story from North America"
     ],
     [
         "0UC2w1D_XZc",
-        "YouTube video"
+        "Wain Stop"
     ],
     [
         "-D3kZddSd_Y",
@@ -614,11 +614,25 @@ const tapes = [
     [
         "wD2_uJLfaWA",
         "Krag's Race: When Will it All Make Sense?"
+    ],
+    [
+        "0hMsPtcw1JU",
+        "Unga Tunga"
     ]
 ];
 
 const shelf = document.getElementById("shelf");
 const screen = document.getElementById("screen");
+const clock = document.getElementById("player-time");
+
+function tick() {
+    const now = new Date();
+    clock.textContent = now.toLocaleTimeString([], { hour12: false });
+    clock.dateTime = now.toISOString();
+}
+
+tick();
+setInterval(tick, 1000);
 
 function rows() {
     const mobile = window.matchMedia("(max-width: 600px)").matches;
@@ -669,3 +683,114 @@ for (const tape of tapes) {
 play(tapes[0], false);
 rows();
 window.addEventListener("resize", rows);
+
+const collections = [
+    [
+        "Wainstop Gold Collection",
+        [
+            "ms2klX-puUU",
+            "Y_6Kp7q5tbA",
+            "0UC2w1D_XZc",
+            "p6NI6JtWUgw",
+            "Pl1HnUc_u4s",
+            "AWnN8PNwA4w",
+            "-D3kZddSd_Y",
+            "0hMsPtcw1JU"
+        ]
+    ],
+    [
+        "Burning Jakob",
+        [
+            "dz4bK8gLmv4",
+            "F8aBQAiTzKc",
+            "NoyDvsjkPwg",
+            "-D3kZddSd_Y"
+        ]
+    ],
+    [
+        "Extreme Animals: “What is a Band?”",
+        [
+            "VmHMIkFWq3Q",
+            "Lli2YPXcQL0",
+            "rEhP9Wk8jzM",
+            "HBbG_8f5mkA",
+            "di-aZ2yfGFg"
+        ]
+    ],
+    [
+        "The Interpersonal Zone",
+        [
+            "Mk1NBq6yTos",
+            "FkdYMx9FVPs",
+            "m-UFPEFts_M",
+            "xtwAR55iPtQ",
+            "JcLwBF-H2sg",
+            "YNrzF9YWGKg",
+            "20kGkdlRbME",
+            "0adM4vjpSZc",
+            "Di_np0Vz96c",
+            "Aaytsi_o1Yw",
+            "pWTdFpLon04",
+            "q1Zn1PVBPB4",
+            "yP9wjKg97vY",
+            "7cjv6tUbS1M",
+            "sIhvybdxRaE",
+            "RhcANLKjw8Q",
+            "eNslKJQ4ztw",
+            "QK5PDGc6Lds",
+            "-QMyclYucOk",
+            "ykNorOqYCiw",
+            "2qjfDvBFVU8",
+            "O7-59zz7BCk",
+            "_zkizekr4R0",
+            "gESxbuJg214",
+            "IyJysOx5jCI",
+            "OUyy7SfrOU8",
+            "MVmBhBkOtKk",
+            "2nB_SmwhuSE",
+            "DX2NgDGhGxM",
+            "3zPRjw8SFJk",
+            "F1MVqWMGtxE",
+            "bGfosf3RKYk"
+        ]
+    ],
+    [
+        "Nightmares",
+        [
+            "Gfewxr_t8yY",
+            "riV_yh6FvUg",
+            "-x2YYx_lxdI",
+            "ytWEYao3Xkg",
+            "lincHfkqXXE",
+            "UxpiZe5Jpas",
+            "Pl1HnUc_u4s",
+            "T-cojXM481s",
+            "AWnN8PNwA4w",
+            "mc47kj4f3_c"
+        ]
+    ]
+];
+const archive = document.getElementById("collections");
+
+for (const collection of collections) {
+    const section = document.createElement("section");
+    const title = document.createElement("h2");
+    title.textContent = collection[0];
+    section.append(title);
+    for (const id of collection[1]) {
+        const tape = tapes.find(function (item) { return item[0] === id; });
+        const link = document.createElement("a");
+        link.href = "https://www.youtube.com/watch?v=" + id;
+        link.target = "_blank";
+        link.rel = "noopener";
+        link.textContent = tape[1];
+        link.addEventListener("click", function (event) {
+            if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+            event.preventDefault();
+            play(tape, true);
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+        section.append(link);
+    }
+    archive.append(section);
+}
