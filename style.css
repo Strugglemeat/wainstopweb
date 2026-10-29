@@ -400,6 +400,11 @@ nav > a[aria-current="page"] {
     margin-top: 24px;
 }
 
+.colophon img {
+    display: block;
+    margin-top: 8px;
+}
+
 .featured {
     margin-top: 0;
     margin-bottom: 24px;
