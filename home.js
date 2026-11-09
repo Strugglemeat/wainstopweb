@@ -1,5 +1,4 @@
 const floor = document.getElementById("tiles");
-const pictures = ["tiles/favicon.png"];
 const giant = Math.random() < 0.15;
 floor.classList.toggle("giant", giant);
 
@@ -13,7 +12,7 @@ function lay() {
     for (let n = 0; n < across * down; n++) {
         const square = document.createElement("div");
         const picture = document.createElement("img");
-        picture.src = pictures[Math.floor(Math.random() * pictures.length)];
+        picture.src = "favicon.png";
         picture.alt = "";
         if (giant) {
             picture.style.height = window.innerHeight + "px";
@@ -66,3 +65,15 @@ function stop() {
 
 window.addEventListener("pointerup", stop);
 window.addEventListener("pointercancel", stop);
+
+const updates = document.querySelector(".whats-new");
+updates.style.setProperty("--update-x", Math.random());
+updates.style.setProperty("--update-y", Math.random());
+updates.querySelector("button").addEventListener("click", function () {
+    updates.hidden = true;
+    document.querySelector('nav [aria-current="page"]').focus();
+});
+
+document.addEventListener("click", function (event) {
+    if (!updates.contains(event.target)) updates.hidden = true;
+});

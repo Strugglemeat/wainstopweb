@@ -144,28 +144,18 @@ const web = [{
     title: "Dream Chatroom LiVE",
     image: "images/games/dream-chat.webp",
     web: "https://ncbourget.github.io/dream-chatroom-live/",
-    description: "Connect your webcam and microphone, play on your desktop or your mobile device. Explore the digital landscape and make new friends with random people online",
-    first: true
+    description: "Connect your webcam and microphone, play on your desktop or your mobile device. Explore the digital landscape and make new friends with random people online"
 }, {
     title: "shinycatcherz",
     image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ii/crystal/transparent/shiny/94.png",
-    web: "pokemon.html",
+    web: "shinycatcherz.html",
     description: "catch em all or something hahaha"
 }, {
     title: "Pretty Lag Machine",
     image: "images/games/lag-machine.webp",
     web: "https://ncbourget.github.io/pretty-lag-machine-live/",
-    description: "Let this program run in the background if you like",
-    last: true
+    description: "Let this program run in the background if you like"
 }];
-
-function shuffle(items) {
-    for (let n = items.length - 1; n > 0; n--) {
-        const pick = Math.floor(Math.random() * (n + 1));
-        [items[n], items[pick]] = [items[pick], items[n]];
-    }
-    return items;
-}
 
 function show(box) {
     const coverLink = document.getElementById("cover-link");
@@ -177,7 +167,7 @@ function show(box) {
     released.textContent = box.released || "";
     released.hidden = !box.released;
     description.textContent = box.description;
-    if (box.web === "pokemon.html") {
+    if (box.web === "shinycatcherz.html") {
         let caught = 0;
         try {
             const saved = Number(localStorage.getItem("shinies-caught"));
@@ -197,21 +187,18 @@ function show(box) {
     }
 }
 
-const sections = [{ title: "Web", games: web }].concat(shuffle([
+const sections = [
+    { title: "Web", games: web },
     { title: "Itch", games: boxes.filter(function (box) { return box.itch; }) },
     { title: "Steam", games: boxes.filter(function (box) { return box.steam; }) }
-]));
+];
 
 for (const section of sections) {
     const group = document.createElement("section");
     const heading = document.createElement("h2");
     heading.textContent = section.title;
     group.append(heading);
-    const ordered = shuffle(section.games).sort(function (a, b) {
-        return Number(Boolean(b.first)) - Number(Boolean(a.first)) ||
-            Number(Boolean(a.last)) - Number(Boolean(b.last));
-    });
-    for (const box of ordered) {
+    for (const box of section.games) {
         const link = document.createElement("a");
         link.href = box.web || box.itch || box.steam;
         link.target = box.web && !box.web.startsWith("https://") ? "_self" : "_blank";
@@ -229,4 +216,4 @@ for (const section of sections) {
     shelf.append(group);
 }
 
-show(shuffle(boxes.slice())[0]);
+show(boxes[Math.floor(Math.random() * boxes.length)]);

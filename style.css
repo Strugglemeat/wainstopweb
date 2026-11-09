@@ -1,5 +1,7 @@
 html {
     overflow-y: scroll;
+    --bevel-light: #ff7777;
+    --bevel-dark: #a00000;
 }
 
 ::selection {
@@ -47,6 +49,128 @@ html {
     width: auto;
     max-width: none;
     transform: translateX(-50%);
+}
+
+.whats-new {
+    --update-red: #ff0000;
+    position: fixed;
+    top: calc(8px + (100% - 16px) * var(--update-y, 0));
+    left: calc(8px + (100% - 16px) * var(--update-x, 0));
+    transform: translate(calc(-100% * var(--update-x, 0)), calc(-100% * var(--update-y, 0)));
+    box-sizing: border-box;
+    width: min(276px, calc(100% - 16px));
+    max-height: calc(100% - 16px);
+    overflow: auto;
+    border: 4px solid;
+    border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+    padding-bottom: 76px;
+    background: red;
+    color: var(--update-red);
+    font: 10pt/1.2 Arial, sans-serif;
+    z-index: 4;
+}
+
+.whats-new-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    padding: 5px 8px 12px 12px;
+    background: yellow;
+}
+
+.whats-new-header h2 {
+    margin: 0;
+    font: italic 34px/1 "Times New Roman", serif;
+    text-transform: uppercase;
+}
+
+.whats-new-header button {
+    flex: none;
+    width: 30px;
+    height: 31px;
+    border: 3px solid;
+    border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+    background: red;
+    color: yellow;
+    font: inherit;
+    cursor: pointer;
+}
+
+.whats-new-header button:active {
+    border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light) var(--bevel-dark);
+}
+
+.whats-new-header::before,
+.whats-new-header::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 2px;
+    left: 0;
+    border-top: 4px dotted var(--update-red);
+    pointer-events: none;
+}
+
+.whats-new-header::after {
+    left: 2px;
+    bottom: 3px;
+}
+
+.whats-new-items {
+    margin: 0;
+    padding: 0 0 15px;
+    list-style: none;
+    background: yellow;
+}
+
+.whats-new-items li + li {
+    border-top: 1px solid red;
+}
+
+.whats-new-items a {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 12px;
+    padding: 12px;
+    color: inherit;
+    text-decoration: none;
+}
+
+.whats-new-items a:hover strong,
+.whats-new-items a:focus-visible strong {
+    text-decoration: underline;
+}
+
+.whats-new :focus-visible {
+    outline: 2px solid var(--update-red);
+    outline-offset: -2px;
+}
+
+.whats-new-header button:focus-visible {
+    outline-color: yellow;
+}
+
+.whats-new-items p {
+    margin: 10px 0 0;
+}
+
+.whats-new-items .update-video {
+    width: 90px;
+    height: 63px;
+    object-fit: cover;
+}
+
+.whats-new-items .update-cover {
+    width: auto;
+    height: 90px;
+}
+
+@media (max-width: 600px) {
+    .whats-new {
+        padding-bottom: 32px;
+    }
 }
 
 body {
@@ -171,6 +295,8 @@ nav > a[aria-current="page"] {
 }
 
 .cinema .player {
+    width: 60%;
+    margin-left: 0;
     aspect-ratio: auto;
 }
 
@@ -235,7 +361,7 @@ nav > a[aria-current="page"] {
     margin: 0;
     aspect-ratio: auto;
     font: 10pt Arial, sans-serif;
-    text-align: right;
+    text-align: left;
     max-height: 65vh;
     overflow-y: auto;
 }
@@ -285,7 +411,7 @@ nav > a[aria-current="page"] {
 }
 
 #name {
-    margin-top: 6px;
+    margin: 6px 0 12px;
 }
 
 #stores {
@@ -293,12 +419,12 @@ nav > a[aria-current="page"] {
 }
 
 #released {
-    margin-top: 4px;
+    width: fit-content;
 }
 
 #stores a {
-    display: inline-block;
-    margin-left: 12px;
+    display: block;
+    width: fit-content;
 }
 
 #stores a:hover {
@@ -313,7 +439,8 @@ nav > a[aria-current="page"] {
 }
 
 #description {
-    margin: 12px 0 0;
+    margin: 4px 0 0;
+    width: fit-content;
     line-height: 1.4;
     white-space: pre-line;
 }
@@ -337,6 +464,14 @@ nav > a[aria-current="page"] {
 
 .shop-filter select {
     font: inherit;
+}
+
+.shop .shop-filter label {
+    box-shadow: -1px -1px 0 1px var(--bevel-light), 1px 1px 0 1px var(--bevel-dark);
+}
+
+.shop .shop-filter select {
+    border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
 }
 
 .goods a[hidden] {
@@ -441,15 +576,25 @@ nav > a[aria-current="page"] {
 }
 
 .details {
-    text-align: right;
-    line-height: 1.4;
+    text-align: left;
+    line-height: 1.7;
 }
 
+.people h2,
 .details h2,
 #collections h2,
 .games #shelf h2 {
     margin: 0;
     font: bold calc(clamp(24px, 2.5vw, 48px) - 5pt) "Times New Roman", serif;
+}
+
+.people h2,
+.details h2,
+#collections h2,
+.games #shelf h2,
+.games #name {
+    border: 3px solid;
+    border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
 }
 
 #collections {
@@ -461,6 +606,8 @@ nav > a[aria-current="page"] {
     margin-bottom: 24px;
 }
 
+.people h2,
+.details h2,
 #collections h2 {
     color: yellow;
     background: red;
@@ -482,6 +629,15 @@ nav > a[aria-current="page"] {
 
 .details p {
     margin: 0;
+}
+
+.details-body > * {
+    display: block;
+    width: fit-content;
+}
+
+.details-body > a {
+    margin-top: 4px;
 }
 
 .small {
@@ -624,7 +780,7 @@ nav > a[aria-current="page"] {
     }
 
     .cinema .player {
-        width: 100%;
+        width: 90%;
     }
 
     #shelf {
@@ -632,13 +788,7 @@ nav > a[aria-current="page"] {
     }
 }
 
-.people div:not(:has(*)),
-.details h2,
-.details div,
-.details p,
 #name,
-#released,
-#description,
 .shop-filter label,
 .shop-filter select,
 .shop-filter option {
@@ -647,7 +797,9 @@ nav > a[aria-current="page"] {
 }
 
 .people a,
-.details a,
+.details-body > *,
+#released,
+#description,
 #stores a,
 .goods a > div {
     color: red;

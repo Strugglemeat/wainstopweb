@@ -1,5 +1,65 @@
 const tapes = [
     [
+        "mCy7reBLIRw",
+        "HER MURMER, 14 NIGHTMARES"
+    ],
+    [
+        "1yX99JuDsCY",
+        "jimbo help line 10"
+    ],
+    [
+        "y1n81Gw3OFc",
+        "jimbo help line 9"
+    ],
+    [
+        "0ZuRU89DOqc",
+        "jimbo help line 8"
+    ],
+    [
+        "kR8Zl0jM_Fo",
+        "jimbo help line 7"
+    ],
+    [
+        "3HGT8o7gtno",
+        "jimbo help line 6"
+    ],
+    [
+        "Rs0zZzj1JKM",
+        "jimbo help line 5"
+    ],
+    [
+        "H9Hl47r4-iI",
+        "jimbohotline short 4"
+    ],
+    [
+        "fGq3XYUBVWk",
+        "jimbo help line 3"
+    ],
+    [
+        "Aicd03phLMA",
+        "jimbo help line 2"
+    ],
+    [
+        "CbOsk3DPTkw",
+        "jimbo help line 1"
+    ],
+    [
+        "roqVz56PbWo",
+        "STOPTHINKING4K_02: dancing man #dance"
+    ],
+    [
+        "IoFdRqd8_uU",
+        "4K_01: abduction #animation #wainstop #moonchild #anunnaki"
+    ],
+    [
+        "Fw3BQVhD6xA",
+        "GUBA 02"
+    ],
+    [
+        "l2PVOgFuV7g",
+        "GUBA 01"
+    ],
+    [
         "Y_6Kp7q5tbA",
         "Bart the General"
     ],
@@ -637,17 +697,10 @@ setInterval(tick, 1000);
 function rows() {
     const mobile = window.matchMedia("(max-width: 600px)").matches;
     const size = mobile ? 28.56 : 40;
-    let across = Math.max(1, Math.floor((shelf.clientWidth + 3) / (mobile ? 35 : 43)) - 4);
-    if (mobile) {
-        across = Math.min(Math.floor((shelf.clientWidth + 3) / (size + 3)), Math.round(across * 1.25));
-    }
+    const across = Math.max(1, Math.floor((shelf.clientWidth + 3) / (size + 3)));
     const spare = (across - tapes.length % across) % across;
-    shelf.style.gridTemplateColumns = "repeat(" + across + ", " + size + "px)";
+    shelf.style.gridTemplateColumns = "repeat(" + across + ", minmax(0, 1fr))";
     shelf.firstElementChild.style.gridColumnStart = spare + 1;
-    const width = across * size + (across - 1) * 3;
-    const player = document.querySelector(".player");
-    player.style.marginLeft = (shelf.clientWidth - width) / 2 + "px";
-    player.style.width = width * (mobile ? 0.9 : 0.6) + "px";
 }
 
 for (let n = tapes.length - 1; n > 0; n--) {
@@ -688,14 +741,31 @@ const collections = [
     [
         "Wainstop Gold Collection",
         [
-            "ms2klX-puUU",
-            "Y_6Kp7q5tbA",
-            "0UC2w1D_XZc",
-            "p6NI6JtWUgw",
-            "Pl1HnUc_u4s",
-            "AWnN8PNwA4w",
+            "mCy7reBLIRw",
+            "0hMsPtcw1JU",
             "-D3kZddSd_Y",
-            "0hMsPtcw1JU"
+            "AWnN8PNwA4w",
+            "Pl1HnUc_u4s",
+            "p6NI6JtWUgw",
+            "0UC2w1D_XZc",
+            "Y_6Kp7q5tbA",
+            "ms2klX-puUU"
+        ]
+    ],
+    [
+        "Nightmares",
+        [
+            "Gfewxr_t8yY",
+            "riV_yh6FvUg",
+            "-x2YYx_lxdI",
+            "ytWEYao3Xkg",
+            "lincHfkqXXE",
+            "UxpiZe5Jpas",
+            "Pl1HnUc_u4s",
+            "T-cojXM481s",
+            "AWnN8PNwA4w",
+            "mc47kj4f3_c",
+            "mCy7reBLIRw"
         ]
     ],
     [
@@ -752,21 +822,6 @@ const collections = [
             "3zPRjw8SFJk",
             "F1MVqWMGtxE",
             "bGfosf3RKYk"
-        ]
-    ],
-    [
-        "Nightmares",
-        [
-            "Gfewxr_t8yY",
-            "riV_yh6FvUg",
-            "-x2YYx_lxdI",
-            "ytWEYao3Xkg",
-            "lincHfkqXXE",
-            "UxpiZe5Jpas",
-            "Pl1HnUc_u4s",
-            "T-cojXM481s",
-            "AWnN8PNwA4w",
-            "mc47kj4f3_c"
         ]
     ]
 ];
